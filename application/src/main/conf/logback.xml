@@ -19,26 +19,55 @@
 <!DOCTYPE configuration>
 <configuration>
 
-    <appender name="fileLogAppender"
+    <appender name="FILE"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${pkg.logFolder}/${pkg.name}.log</file>
-        <rollingPolicy
-                class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${pkg.logFolder}/${pkg.name}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <maxFileSize>100MB</maxFileSize>
-            <maxHistory>30</maxHistory>
-            <totalSizeCap>3GB</totalSizeCap>
+        <File>${pkg.logFolder}/all.log</File>
+        <Append>true</Append>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ALL</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${pkg.logFolder}/all-%d{yyyy-MM-dd,aux}/all-%d{yyyy-MM-dd}.%i.zip</FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>32MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
         <encoder>
-            <pattern>%d{ISO8601} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <charset>utf-8</charset>
+            <pattern>%d-%c-%t-%5p: %m%n</pattern>
         </encoder>
     </appender>
 
-    <logger name="org.thingsboard.server" level="INFO" />
-    <logger name="akka" level="INFO" />
+    <appender name="ERRORFILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Append>true</Append>
+        <File>${pkg.logFolder}/error/error.log</File>
+        <encoder>
+            <charset>utf-8</charset>
+            <pattern>%d-%c-%t-%5p: %m%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${pkg.logFolder}/error/error-%d{yyyy-MM-dd,aux}/error-%d{yyyy-MM-dd}.%i.zip</FileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>32MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
 
-    <root level="INFO">
-        <appender-ref ref="fileLogAppender"/>
+
+
+
+    <logger name="org.thingsboard.server" level="debug" />
+    <logger name="akka" level="debug" />
+
+
+    <root level="debug">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="ERRORFILE" />
     </root>
 
 </configuration>

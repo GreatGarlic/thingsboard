@@ -19,17 +19,19 @@
 <!DOCTYPE configuration>
 <configuration>
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <Target>System.out</Target>
         <encoder>
-            <pattern>%d{ISO8601} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            <pattern>%d-%c-%t-%5p: %m%n</pattern>
         </encoder>
     </appender>
 
-    <logger name="org.thingsboard.server" level="TRACE" />
-    <logger name="akka" level="INFO" />
+    <logger name="org.thingsboard.server" level="debug" />
+    <logger name="akka" level="debug" />
 
-    <root level="INFO">
-        <appender-ref ref="STDOUT"/>
+    <root level="DEBUG">
+        <appender-ref ref="CONSOLE" />
     </root>
 
 </configuration>
