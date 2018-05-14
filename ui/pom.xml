@@ -45,7 +45,7 @@
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.0</version>
+                <version>1.6</version>
                 <configuration>
                     <installDirectory>target</installDirectory>
                     <workingDirectory>${basedir}</workingDirectory>
@@ -68,6 +68,8 @@
                         </goals>
                         <configuration>
                             <arguments>install</arguments>
+                            <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+                            <npmRegistryURL>https://registry.npm.taobao.org</npmRegistryURL>
                         </configuration>
                     </execution>
                 </executions>
@@ -85,10 +87,12 @@
                     <plugin>
                         <groupId>com.github.eirslett</groupId>
                         <artifactId>frontend-maven-plugin</artifactId>
-                        <version>1.0</version>
+                        <version>1.6</version>
                         <configuration>
                             <installDirectory>target</installDirectory>
                             <workingDirectory>${basedir}</workingDirectory>
+                            <nodeDownloadRoot>http://npm.taobao.org/mirrors/node/</nodeDownloadRoot>
+                            <npmDownloadRoot>http://npm.taobao.org/mirrors/npm/</npmDownloadRoot>
                         </configuration>
                         <executions>
                             <execution>
@@ -117,7 +121,7 @@
                     <plugin>
                         <groupId>com.github.eirslett</groupId>
                         <artifactId>frontend-maven-plugin</artifactId>
-                        <version>1.0</version>
+                        <version>1.6</version>
                         <configuration>
                             <installDirectory>target</installDirectory>
                             <workingDirectory>${basedir}</workingDirectory>
