@@ -5,7 +5,7 @@ setlocal ENABLEEXTENSIONS
 
 
 @ECHO Java 1.8 found!
-@ECHO Installing ${pkg.name} ...
+@ECHO Installing thingsboard ...
 
 SET loadDemo=false
 
@@ -16,7 +16,7 @@ if "%1" == "--loadDemo" (
 SET BASE=%~dp0
 SET LOADER_PATH=%BASE%\conf,%BASE%\extensions
 SET SQL_DATA_FOLDER=%BASE%\data\sql
-SET jarfile=%BASE%\lib\${pkg.name}.jar
+SET jarfile=%BASE%\lib\thingsboard.jar
 SET installDir=%BASE%\data
 
 PUSHD %BASE%\conf
@@ -34,7 +34,7 @@ if errorlevel 1 (
 )
 POPD
 
-%BASE%${pkg.name}.exe install
+%BASE%thingsboard.exe install
 
 @ECHO ThingsBoard installed successfully!
 
